@@ -7,5 +7,8 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
     {
         Task<ICollection<User>> ReadAllAsync();
         Task<User?> ReadAsync(int id);
+        Task CreateAsync(User user);
+        Task UpdateAsync(User user);
+        Task DeleteAsync(int id);
     }
 }

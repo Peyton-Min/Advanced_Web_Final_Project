@@ -26,5 +26,26 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
                 .ThenInclude(ba => ba.User)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
+
+        public async Task CreateAsync(Event ev)
+        {
+            _db.Events.Add(ev);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Event ev)
+        {
+            _db.Events.Update(ev);
+            await _db.SaveChangesAsync();
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var ev = await _db.Events.FindAsync(id);
+            if (ev != null)
+            {
+                _db.Events.Remove(ev);
+                await _db.SaveChangesAsync();
+            }
+        }
     }
 }
