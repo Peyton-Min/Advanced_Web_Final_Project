@@ -3,10 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Event_Manager_Final_Project_Advanced_Web.Services
 {
-    public class IUserRepository 
+    public interface IUserRepository 
     {
-        //Uncomment when UserController is finished
-        //Task<ICollection<User>> ReadAllAsync();
-        //Task<User?> ReadAsync(int id);
+        Task<ICollection<User>> ReadAllAsync();
+        Task<User?> ReadAsync(int id);
     }
 }

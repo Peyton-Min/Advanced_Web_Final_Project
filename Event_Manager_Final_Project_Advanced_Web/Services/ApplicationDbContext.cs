@@ -11,5 +11,6 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
 
         public DbSet<User> Users => Set<User>();
         public DbSet<Event> Events => Set<Event>();
+        public DbSet<EventParticipant> EventParticipants => Set<EventParticipant>();
     }
 }
