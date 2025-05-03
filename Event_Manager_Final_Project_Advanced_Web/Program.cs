@@ -1,3 +1,6 @@
+using Event_Manager_Final_Project_Advanced_Web.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace Event_Manager_Final_Project_Advanced_Web
 {
     public class Program
@@ -8,6 +11,10 @@ namespace Event_Manager_Final_Project_Advanced_Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IUserRepository, DbUserRepository>();
+            builder.Services.AddScoped<IEventRepository, DbEventRepository>();
 
             var app = builder.Build();
 
