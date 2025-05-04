@@ -24,16 +24,22 @@
 <!--Source:https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event-->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const now = new Date(); 
-        const events = document.querySelectorAll('.event'); 
+        function checkAndMoveEvents() {
+            const now = new Date();
+            const events = document.querySelectorAll('#upcoming-events .event');
 
-        events.forEach(event => {
-            const timeString = event.getAttribute('data-time'); 
-            const eventTime = new Date(timeString);
+            events.forEach(event => {
+                const timeString = event.getAttribute('data-time');
+                const eventTime = new Date(timeString);
 
-            if (eventTime < now) {
-                document.getElementById('passed-events').appendChild(event); 
-            }
-        });
+                if (eventTime < now) {
+                    document.getElementById('passed-events').appendChild(event);
+                }
+            });
+        }
+
+        checkAndMoveEvents();
+
+        setInterval(checkAndMoveEvents, 30000); //Runs every 30 seconds to move events 
     });
 </script>
