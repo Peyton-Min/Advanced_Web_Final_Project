@@ -43,11 +43,11 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
             }
 
             await _userRepository.CreateAsync(user);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> UpdateAsync(int id)
         {
             var user = await _userRepository.ReadAsync(id);
 
@@ -60,19 +60,23 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(User user)
+        public async Task<IActionResult> UpdateAsync(string username, string password, string newEmail, string newUsername)
         {
-            if (!ModelState.IsValid)
+            var user = await _userRepository.GetUserByCredentialsAsync(username, password);
+            if (user == null)
             {
-                return View(user);
+                ModelState.AddModelError("", "Invalid credentials.");
+                return View(); // Or show error
             }
 
+            user.UserEmail = newEmail;
+            user.Username = newUsername;
             await _userRepository.UpdateAsync(user);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
             var user = await _userRepository.ReadAsync(id);
             if (user == null)
@@ -87,10 +91,17 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         //
         // Source: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/examining-the-details-and-delete-methods
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteAsyncConfirm(string username, string password)
         {
-            await _userRepository.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            var user = await _userRepository.GetUserByCredentialsAsync(username, password);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid credentials.");
+                return View();
+            }
+
+            await _userRepository.DeleteAsync(user.Id);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
