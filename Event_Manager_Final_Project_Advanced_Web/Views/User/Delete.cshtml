@@ -1,0 +1,32 @@
+﻿@model Event_Manager_Final_Project_Advanced_Web.Models.Entities.User
+
+@{
+    ViewData["Title"] = "Delete Account";
+}
+
+<h2>Delete Account</h2>
+
+<p>To delete your account, please confirm your credentials.</p>
+
+<form asp-action="DeleteAsyncConfirm" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input name="username" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input name="password" type="password" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-danger">Delete Account</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
