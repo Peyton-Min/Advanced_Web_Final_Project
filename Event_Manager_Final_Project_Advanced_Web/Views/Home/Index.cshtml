@@ -1,8 +1,39 @@
-﻿@{
+﻿@model IEnumerable<Event_Manager_Final_Project_Advanced_Web.Models.Entities.Event>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Upcoming Events</h2>
+<ul id="upcoming-events">
+    @foreach (var ev in Model)
+    {
+        <li class="event" data-time="@ev.EventTime.ToString("o")">
+            <strong>@ev.Title</strong> - @ev.EventTime.ToString("f")
+        </li>
+    }
+</ul>
+
+<h2>Passed Events</h2>
+<ul id="passed-events">
+</ul>
+
+<!--Ajax Implemtation: Moves events whose dates and time have passed to Passed Events List-->
+<!--Source: https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings -->
+<!--Source: https://www.w3schools.com/Tags/tag_script.asp-->
+<!--Source:https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const now = new Date(); 
+        const events = document.querySelectorAll('.event'); 
+
+        events.forEach(event => {
+            const timeString = event.getAttribute('data-time'); 
+            const eventTime = new Date(timeString);
+
+            if (eventTime < now) {
+                document.getElementById('passed-events').appendChild(event); 
+            }
+        });
+    });
+</script>
