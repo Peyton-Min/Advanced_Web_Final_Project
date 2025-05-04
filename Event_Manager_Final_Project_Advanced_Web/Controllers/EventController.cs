@@ -8,10 +8,12 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
     public class EventController : Controller
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IUserRepository _userRepository;
 
-        public EventController(IEventRepository eventRepo)
+        public EventController(IEventRepository eventRepo, IUserRepository userRepo)
         {
             _eventRepository = eventRepo;
+            _userRepository = userRepo;
         }
 
         public async Task<IActionResult> Index()
@@ -38,15 +40,24 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Event ev)
+        public async Task<IActionResult> Create(Event ev, string username, string password)
         {
             if (!ModelState.IsValid)
             {
                 return View(ev);
             }
 
+            var user = await _userRepository.GetUserByCredentialsAsync(username, password);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid username or password.");
+                return View(ev);
+            }
+
+            ev.CreatedByUser = user.Id;
             await _eventRepository.CreateAsync(ev);
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

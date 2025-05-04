@@ -47,16 +47,9 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UpdateAsync(int id)
+        public async Task<IActionResult> Update()
         {
-            var user = await _userRepository.ReadAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
+            return View("Update");
         }
 
         [HttpPost]
@@ -66,7 +59,7 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
             if (user == null)
             {
                 ModelState.AddModelError("", "Invalid credentials.");
-                return View(); // Or show error
+                return View("Update");
             }
 
             user.UserEmail = newEmail;
