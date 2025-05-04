@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Event_Manager_Final_Project_Advanced_Web.Models.Entities.Event>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Upcoming Events</h2>
+<ul id="upcoming-events">
+    @foreach (var ev in Model)
+    {
+        <li class="event" data-time="@ev.EventTime.ToString("o")">
+            <strong>@ev.Title</strong> - @ev.EventTime.ToString("f")
+        </li>
+    }
+</ul>
+
+<h2>Passed Events</h2>
+<ul id="passed-events">
+</ul>
+
+<!--Ajax Implemtation: Moves events whose dates and time have passed to Passed Events List-->
+<!--Source: https://learn.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings -->
+<!--Source: https://www.w3schools.com/Tags/tag_script.asp-->
+<!--Source:https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function checkAndMoveEvents() {
+            const now = new Date();
+            const events = document.querySelectorAll('#upcoming-events .event');
+
+            events.forEach(event => {
+                const timeString = event.getAttribute('data-time');
+                const eventTime = new Date(timeString);
+
+                if (eventTime < now) {
+                    document.getElementById('passed-events').appendChild(event);
+                }
+            });
+        }
+
+        checkAndMoveEvents();
+
+        setInterval(checkAndMoveEvents, 30000); //Runs every 30 seconds to move events 
+    });
+</script>
