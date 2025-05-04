@@ -22,7 +22,7 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
             {
                 Id = b.Id,
                 Username = b.Username,
-                Password = b.Password,
+                UserEmail = b.UserEmail,
                 EventCount = b.EventParticipants?.Count ?? 0
             });
             return View(vm);
