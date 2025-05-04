@@ -10,5 +10,6 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
         Task CreateAsync(User user);
         Task UpdateAsync(User user);
         Task DeleteAsync(int id);
+        Task<User?> GetUserByCredentialsAsync(string username, string password);
     }
 }

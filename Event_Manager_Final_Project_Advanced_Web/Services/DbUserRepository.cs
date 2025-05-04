@@ -47,5 +47,11 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
                 await _db.SaveChangesAsync();
             }
         }
+
+        public async Task<User?> GetUserByCredentialsAsync(string username, string password)
+        {
+            return await _db.Users
+                .FirstOrDefaultAsync(user => user.Username == username && user.Password == password);
+        }
     }
 }
