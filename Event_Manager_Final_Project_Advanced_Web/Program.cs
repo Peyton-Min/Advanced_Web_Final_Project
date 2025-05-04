@@ -5,7 +5,7 @@ namespace Event_Manager_Final_Project_Advanced_Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +15,11 @@ namespace Event_Manager_Final_Project_Advanced_Web
                     builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IUserRepository, DbUserRepository>();
             builder.Services.AddScoped<IEventRepository, DbEventRepository>();
+            builder.Services.AddScoped<Initializer>();
 
             var app = builder.Build();
+
+            await SeedDataAsync(app);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -38,6 +41,22 @@ namespace Event_Manager_Final_Project_Advanced_Web
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+            static async Task SeedDataAsync(WebApplication app)
+            {
+                using var scope = app.Services.CreateScope();
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var initializer = services.GetRequiredService<Initializer>();
+                    await initializer.SeedDatabaseAsync();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError("An error occurred while seeding the database: {Message}", ex.Message);
+                }
+            }
         }
     }
 }
