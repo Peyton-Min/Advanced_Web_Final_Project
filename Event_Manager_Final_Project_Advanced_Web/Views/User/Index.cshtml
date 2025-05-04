@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Event_Manager_Final_Project_Advanced_Web.Models.ViewModels.UserDetailsVM>
+
+@{
+    ViewData["Title"] = "User List";
+}
+
+<h2>Registered Users</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Events Participated</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Username</td>
+                <td>@user.UserEmail</td>
+                <td>@user.EventCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
