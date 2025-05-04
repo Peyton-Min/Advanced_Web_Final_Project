@@ -98,10 +98,30 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, string username, string password)
         {
+            var user = await _userRepository.GetUserByCredentialsAsync(username, password);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid credentials.");
+                var ev = await _eventRepository.ReadAsync(id);
+                return View("Delete", ev);
+            }
+
+            var evToDelete = await _eventRepository.ReadAsync(id);
+            if (evToDelete == null)
+            {
+                return NotFound();
+            }
+
+            if (evToDelete.CreatedByUser != user.Id)
+            {
+                ModelState.AddModelError("", "You are not authorized to delete this event.");
+                return View("Delete", evToDelete);
+            }
+
             await _eventRepository.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
     }
 }

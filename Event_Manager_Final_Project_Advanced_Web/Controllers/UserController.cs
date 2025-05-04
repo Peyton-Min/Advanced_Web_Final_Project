@@ -8,10 +8,12 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IEventRepository _eventRepository;
 
-        public UserController(IUserRepository userRepo)
+        public UserController(IUserRepository userRepo, IEventRepository eventRepo)
         {
             _userRepository = userRepo;
+            _eventRepository = eventRepo;
         }
 
         public async Task<IActionResult> Index()
@@ -69,19 +71,12 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public IActionResult Delete()
         {
-            var user = await _userRepository.ReadAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return View(user);
+            return View(); 
         }
 
-        // 
-        //
+
         // Source: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/examining-the-details-and-delete-methods
         [HttpPost]
         public async Task<IActionResult> DeleteAsyncConfirm(string username, string password)
@@ -91,6 +86,13 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
             {
                 ModelState.AddModelError("", "Invalid credentials.");
                 return View();
+            }
+
+            var allEvents = await _eventRepository.ReadAllAsync();
+            var userEvents = allEvents.Where(ev => ev.CreatedByUser == user.Id);
+            foreach (var ev in userEvents)
+            {
+                await _eventRepository.DeleteAsync(ev.Id);
             }
 
             await _userRepository.DeleteAsync(user.Id);
