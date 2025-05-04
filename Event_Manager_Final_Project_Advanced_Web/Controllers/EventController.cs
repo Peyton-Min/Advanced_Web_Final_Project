@@ -61,6 +61,31 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var ev = await _eventRepository.ReadAsync(id);
+            if (ev == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userRepository.ReadAsync(ev.CreatedByUser);
+            var vm = new EventDetailsVM
+            {
+                Id = ev.Id,
+                Title = ev.Title,
+                Description = ev.Description,
+                EventTime = ev.EventTime,
+                Location = ev.Location,
+                CreatedByUser = ev.CreatedByUser,
+                UserCount = ev.EventParticipants?.Count ?? 0,
+                CreatorUsername = user?.Username ?? "Unknown"
+            };
+
+            return View(vm);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
             var ev = await _eventRepository.ReadAsync(id);
