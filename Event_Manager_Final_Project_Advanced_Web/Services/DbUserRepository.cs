@@ -35,9 +35,16 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
 
         public async Task UpdateAsync(User user)
         {
-            _db.Users.Update(user);
-            await _db.SaveChangesAsync();
+            var existingUser = await _db.Users.FindAsync(user.Id);
+            if (existingUser != null)
+            {
+                existingUser.Username = user.Username;
+                existingUser.UserEmail = user.UserEmail;
+
+                await _db.SaveChangesAsync();
+            }
         }
+
         public async Task DeleteAsync(int id)
         {
             var user = await _db.Users.FindAsync(id);
