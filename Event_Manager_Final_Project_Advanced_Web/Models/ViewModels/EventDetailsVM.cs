@@ -8,6 +8,7 @@
         public DateTime EventTime { get; set; }
         public string? Location { get; set; }
         public int CreatedByUser { get; set; }
+        public string? CreatorUsername { get; set; }
         public int UserCount {  get; set; }
 
     }
