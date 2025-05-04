@@ -10,6 +10,7 @@
     {
         <li class="event" data-time="@ev.EventTime.ToString("o")">
             <strong>@ev.Title</strong> - @ev.EventTime.ToString("f")
+            <a href="@Url.Action("Delete", "Event", new { id = ev.Id })" class="btn btn-link text-danger">delete event?</a>
         </li>
     }
 </ul>

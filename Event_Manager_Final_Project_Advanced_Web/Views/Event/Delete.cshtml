@@ -1,0 +1,31 @@
+﻿@model Event_Manager_Final_Project_Advanced_Web.Models.Entities.Event
+
+@{
+    ViewData["Title"] = "Delete Event";
+}
+
+<h2>Delete Event</h2>
+
+<h4>Enter your credentials to delete the event:</h4>
+
+<form asp-action="DeleteConfirmed" method="post" onsubmit="return confirmDelete(@Model.CreatedByUser)">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label>Username</label>
+        <input name="username" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input name="password" type="password" class="form-control" required />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Cancel</a>
+</form>
+
+<script>
+    function confirmDelete(creatorId) {
+        const confirmed = confirm("You created this event. Are you sure you want to delete it?");
+        return confirmed;
+    }
+</script>
