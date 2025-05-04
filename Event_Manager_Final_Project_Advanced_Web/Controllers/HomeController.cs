@@ -1,4 +1,5 @@
 using Event_Manager_Final_Project_Advanced_Web.Models;
+using Event_Manager_Final_Project_Advanced_Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,19 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IEventRepository _eventRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IEventRepository eventRepository)
         {
             _logger = logger;
+            _eventRepository = eventRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var events = await _eventRepository.ReadAllAsync();
+            var orderedEvents = events.OrderBy(ev => ev.EventTime);
+            return View(orderedEvents);
         }
 
         public IActionResult Privacy()
