@@ -1,0 +1,15 @@
+﻿@model Event_Manager_Final_Project_Advanced_Web.Models.ViewModels.EventDetailsVM
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<h2>@Model.Title</h2>
+
+<p><strong>Description:</strong> @Model.Description</p>
+<p><strong>Date & Time:</strong> @Model.EventTime.ToString("f")</p>
+<p><strong>Location:</strong> @Model.Location</p>
+<p><strong>Created By:</strong> @Model.CreatorUsername</p>
+<p><strong>Participants:</strong> @Model.UserCount</p>
+
+<a asp-action="Index" asp-controller="Home" class="btn btn-primary">Back to Home</a>
