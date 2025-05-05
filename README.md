@@ -11,8 +11,10 @@ A MVC application for managing events and users participating in them.
   > <ins>Entities</ins>
   > > Event.cs\
   > > EventParticipant.cs\
-  > > User.cs\
+  > > User.cs
   > <ins>ViewModels</ins>
+  > > EventDetailsVM.cs\
+  > > UserDetailsVM.cs
     
   > ErrorViewModel
 
