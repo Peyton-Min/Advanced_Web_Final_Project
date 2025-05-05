@@ -8,12 +8,13 @@ A MVC application for managing events and users participating in them.
 <ins>Migrations</ins>
 
 <ins>Models</ins>
-  <ins>Entities</ins>
-
-  <ins>ViewModels</ins>
+  > <ins>Entities</ins>
+  > > Event.cs
+  > > EventParticipant.cs
+  > > User.cs
+  > <ins>ViewModels</ins>
     
-   > ErrorViewModel
->   > Quote test 2
+  > ErrorViewModel
 
 <ins>Services</ins>
 
