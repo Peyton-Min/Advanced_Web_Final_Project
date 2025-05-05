@@ -1,6 +1,8 @@
 # Advanced_Web_Final_Project
 A MVC application for managing events and users participating in them.
 
+## Application Instructions
+
 (Note:Folders are underlines)\
 ## **<ins>File Structure</ins>**
 <ins>Controllers</ins>
