@@ -66,4 +66,12 @@ public class EventParticipantController : Controller
         await _participantRepo.DeleteAsync(user.Id, eventId);
         return RedirectToAction("Index", "Home");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Participants(int id) // id is EventId
+    {
+        var participants = await _participantRepo.GetParticipantsByEventIdAsync(id);
+        ViewBag.EventId = id;
+        return View(participants);
+    }
 }
