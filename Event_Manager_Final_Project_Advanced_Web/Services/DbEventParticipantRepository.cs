@@ -30,5 +30,12 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
                 await _db.SaveChangesAsync();
             }
         }
+        public async Task<List<EventParticipant>> GetParticipantsByEventIdAsync(int eventId)
+        {
+            return await _db.EventParticipants
+                .Include(p => p.User)
+                .Where(p => p.EventId == eventId)
+                .ToListAsync();
+        }
     }
 }

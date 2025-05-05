@@ -4,7 +4,7 @@ namespace Event_Manager_Final_Project_Advanced_Web.Services
 {
     public interface IEventParticipantRepository
     {
-        //Add read and readall here when get to listing eventparticipants 
+        Task<List<EventParticipant>> GetParticipantsByEventIdAsync(int eventId);
         Task CreateAsync(EventParticipant participant);
         Task DeleteAsync(int userId, int eventId);
     }
