@@ -1,8 +1,8 @@
 # Advanced_Web_Final_Project
 A MVC application for managing events and users participating in them.
 
-(Note:Folders are underlines)
-**<ins>File Structure</ins>**
+(Note:Folders are underlines)\
+## **<ins>File Structure</ins>**
 <ins>Controllers</ins>
   EventController
 <ins>Migrations</ins>
@@ -11,22 +11,51 @@ A MVC application for managing events and users participating in them.
   > <ins>Entities</ins>
   > > Event.cs\
   > > EventParticipant.cs\
-  > > User.cs\
+  > > User.cs
 
-  > <ins>ViewModels</ins>\
+  > <ins>ViewModels</ins>
   > > EventDetailsVM.cs\
-  > > UserDetailsVM.cs\  
+  > > UserDetailsVM.cs  
   > ErrorViewModel
 
 <ins>Services</ins>
+> ApplicationDbContext.cs\
+> DbEventRepository.cs\
+> DbUserRepository.cs\
+> IEventParticipantRepository.cs\
+> IEventRepository.cs\
+> Initializer.cs\
+> IUserRepository.cs
 
 <ins>Views</ins>
-  <ins>Event</ins>
+  > <ins>Event</ins>
+  > > Create.cshtml\
+  > > Delete.cshtml\
+  > > Details.cshtml\
+  > > Update.cshtml
+  
+  > <ins>EventParticipant</ins>
+  > > Join.cshtml\
+  > > Leave.cshtml\
+  > > Participants.cshtml
+  
+  > <ins>Home</ins>
+  > > Index.cshtml\
+  > > Privacy.cshtml
 
-  <ins>EventParticipant</ins>
+  > <ins>Shared</ins>
+  > > _Layout.cshtml\
+  > > _ValidationScriptsPartial.cshtml\
+  > > Error.cshtml
 
-  <ins>Home</ins>
+  > <ins>User</ins>
+  > > Create.cshtml\
+>   > Delete.cshtml\
+>   > Index.cshtml\
+>   > Update.cshtml
 
-  <ins>Shared</ins>
+> _ViewImports.cshtml\
+> _ViewStart.cshtml   
 
-  <ins>User</ins>
+> <ins>appsetting.json</ins>
+> > appsettings.Development.json
