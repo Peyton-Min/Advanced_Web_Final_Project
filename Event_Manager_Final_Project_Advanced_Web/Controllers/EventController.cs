@@ -99,15 +99,39 @@ namespace Event_Manager_Final_Project_Advanced_Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Event ev)
+        public async Task<IActionResult> Update(Event ev, string username, string password)
         {
             if (!ModelState.IsValid)
             {
                 return View(ev);
             }
 
-            await _eventRepository.UpdateAsync(ev);
-            return RedirectToAction(nameof(Index));
+            var user = await _userRepository.GetUserByCredentialsAsync(username, password);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid username or password.");
+                return View(ev);
+            }
+
+            var existingEvent = await _eventRepository.ReadAsync(ev.Id);
+            if (existingEvent == null)
+            {
+                return NotFound();
+            }
+
+            if (existingEvent.CreatedByUser != user.Id)
+            {
+                ModelState.AddModelError("", "You are not authorized to edit this event.");
+                return View(ev);
+            }
+
+            existingEvent.Title = ev.Title;
+            existingEvent.Description = ev.Description;
+            existingEvent.EventTime = ev.EventTime;
+            existingEvent.Location = ev.Location;
+
+            await _eventRepository.UpdateAsync(existingEvent);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
