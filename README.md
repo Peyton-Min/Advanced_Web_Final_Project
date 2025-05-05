@@ -5,9 +5,15 @@ A MVC application for managing events and users participating in them.
 
 (Note:Folders are underlines)\
 ## **<ins>File Structure</ins>**
-<ins>Controllers</ins>
-  EventController
-<ins>Migrations</ins>
+> <ins>Controllers</ins>
+> > EventController
+> > EventParticipantController
+> > HomeController
+> > UserController
+
+> <ins>Migrations</ins>
+> > 20250503141620_Mig01.cs
+> > ApplicationDbContextModelSnapshot.cs
 
 <ins>Models</ins>
   > <ins>Entities</ins>
