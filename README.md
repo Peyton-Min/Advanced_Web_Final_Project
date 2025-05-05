@@ -13,6 +13,7 @@ A MVC application for managing events and users participating in them.
   <ins>ViewModels</ins>
     
    > ErrorViewModel
+>   > Quote test 2
 
 <ins>Services</ins>
 
