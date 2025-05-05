@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Event_Manager_Final_Project_Advanced_Web.Models.Entities.EventParticipant>
+
+@{
+    ViewData["Title"] = "Event Participants";
+}
+
+<h2>Participants for Event ID: @ViewBag.EventId</h2>
+
+@if (!Model.Any())
+{
+    <p>No one has joined this event yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Arrival Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var participant in Model)
+            {
+                <tr>
+                    <td>@participant.User?.Username</td>
+                    <td>@participant.ArrivalTime.ToString("f")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

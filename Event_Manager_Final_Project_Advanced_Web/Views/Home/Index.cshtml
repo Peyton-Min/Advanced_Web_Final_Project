@@ -14,8 +14,8 @@
             <a href="@Url.Action("Update", "Event", new { id = ev.Id })" class="btn btn-link text-black">Edit event?</a>
             <a href="@Url.Action("Details", "Event", new { id = ev.Id })" class="btn btn-link text-black">View Details?</a>
             <a href="@Url.Action("Join", "EventParticipant", new { id = ev.Id })" class="btn btn-link text-black">Join Event?</a>
-            <a href="@Url.Action("LeaveEvent", "EventParticipant", new { id = ev.Id })" class="btn btn-link text-danger">Leave Event?</a>
-            <a href="@Url.Action("", "EventParticipant", new { id = ev.Id })" class="btn btn-link text-black">View Attendants</a>
+            <a href="@Url.Action("Leave", "EventParticipant", new { id = ev.Id })" class="btn btn-link text-danger">Leave Event?</a>
+            <a href="@Url.Action("Participants", "EventParticipant", new { id = ev.Id })" class="btn btn-link text-black">View Participants</a>
         </li>
     }
 </ul>
