@@ -15,6 +15,7 @@ namespace Event_Manager_Final_Project_Advanced_Web
                     builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<IUserRepository, DbUserRepository>();
             builder.Services.AddScoped<IEventRepository, DbEventRepository>();
+            builder.Services.AddScoped<IEventParticipantRepository, DbEventParticipantRepository>();
             builder.Services.AddScoped<Initializer>();
 
             var app = builder.Build();
