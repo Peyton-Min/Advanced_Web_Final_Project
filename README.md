@@ -12,6 +12,8 @@ dotnet add package Microsoft.EntityFrameworkCore\
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer\
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 
+The user should then clean and rebuild their solution to make the program work.
+
 ## Seeded Account Login Information
 User 1: 
 Username: Fred Flinstone
