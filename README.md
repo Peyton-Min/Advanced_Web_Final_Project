@@ -5,6 +5,13 @@ A MVC application for managing events and users participating in them.
 To use the event manager, users can begin by first creating a user account or using one of the seeded accounts from the initializer as seen below. Users can then choose one of the User CRUD options in the Nav bar. Users can also choose to create an event in the nav bar or interact with the list of events with the other three CRUD options. Users can also choose to join an event, creating a many to many relationship entity known as an EventParticipant. If the user wishes to renounce their attendance, they can delete this EventParticipant entity as well. Users can also view choose to view what members are participating in what events.\
 **Note:** Users should be aware that deleting their user account cascade delete any events they may have created. 
 
+## Required Packages to Download
+Users may have to open Package Manager Console and run the following commands.
+
+dotnet add package Microsoft.EntityFrameworkCore\
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer\
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
 ## Seeded Account Login Information
 User 1: 
 Username: Fred Flinstone
